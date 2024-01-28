@@ -32,8 +32,9 @@ deployment:
     limits:
       memory: "500Mi"
       cpu: "500m"
+  strategy:
+    type: Recreate
 
-# argo-helm/external-dns-chart/values.yaml
 externalDNS:
   roleName: sua-EKSExternalDNSRole
   domainFilter: itbank08.link
@@ -42,11 +43,6 @@ externalDNS:
   awsZoneType: public
   registry: txt
   txtOwnerId: Z00635613ERGDRY3ESU8T
-
-deployment:
-  namespace: stock-city
-  strategy:
-    type: Recreate
 
 clusterRole:
   rules:
