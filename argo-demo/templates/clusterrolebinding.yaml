@@ -9,7 +9,7 @@ roleRef:
   kind: ClusterRole
   name: external-dns
 subjects:
-{{- range .Values.externalDNS.clusterRoleBinding.subjects }}
+{{- range .Values.clusterRoleBinding.subjects }}
   - kind: ServiceAccount
     name: {{ .serviceAccount }}
     namespace: {{ .namespace }}
