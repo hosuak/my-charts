@@ -17,23 +17,15 @@ service:
   port: 80
 
 deployment:
-  name: web-deploy
-  labels:
-    app: web-app
-    project: stock-city
-  namespace: stock-city
-  replicas: 1
-  containerName: web-app
-  containerRegistry: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com
-  containerImageName: itbank08
-  containerImageTag: latest
+  replicaCount: 1
+  image:
+    repository: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com/itbank08
+    tag: latest
   containerPort: 80
   resources:
     limits:
       memory: "500Mi"
       cpu: "500m"
-  strategy:
-    type: Recreate
 
 externalDNS:
   roleName: sua-EKSExternalDNSRole
@@ -53,8 +45,7 @@ clusterRole:
       resources: ["ingresses"]
       verbs: ["get","watch","list"]
 
-externalDNS:
-  clusterRoleBinding:
-    subjects:
-      - serviceAccount: external-dns
-        namespace: stock-city
+clusterRoleBinding:
+  subjects:
+    - serviceAccount: external-dns
+      namespace: stock-city
