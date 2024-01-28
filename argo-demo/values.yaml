@@ -3,7 +3,7 @@ ingress:
   name: my-ingress
   namespace: stock-city
   loadBalancerName: stock-alb
-  certificateArn: arn:aws:acm:ap-northeast-2:477159410287:certificate/a3b57eac-e021-4ad2-b393-88cba859d70f
+  certificateArn: arn:aws:acm:ap-northeast-2:477159410287:certificate/8f983667-7eee-4d20-9072-3d88255f37cc
   serviceName: web-svc
   hostname: su.itbank08.link
 
