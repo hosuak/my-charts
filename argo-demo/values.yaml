@@ -24,9 +24,9 @@ deployment:
   namespace: stock-city
   replicas: 1
   containerName: web-app
-  containerRegistry: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com
-  containerImageName: itbank08
-  containerImageTag: latest
+  image:
+    repository: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com:itbank08
+    tag: latest
   containerPort: 80
   resources:
     limits:
