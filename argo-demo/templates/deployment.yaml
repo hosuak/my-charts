@@ -18,12 +18,12 @@ spec:
         app: {{ .Values.deployment.labels.app }}
     spec:
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
-          tag: {{ .Values.deployment.image.tag }}
-        ports:
-        - containerPort: {{ .Values.deployment.containerPort }}
-        resources:
-          limits:
-            memory: {{ .Values.deployment.resources.limits.memory }}
-            cpu: {{ .Values.deployment.resources.limits.cpu }}
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.deployment.containerPort }}
+          resources:
+            limits:
+              memory: {{ .Values.deployment.resources.limits.memory }}
+              cpu: {{ .Values.deployment.resources.limits.cpu }}
+
