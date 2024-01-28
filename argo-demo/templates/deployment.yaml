@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
         ports:
-        - containerPort: {{ .Values.containerPort }}
+        - containerPort: {{ .Values.deployment.containerPort }}
         resources:
           limits:
-            memory: {{ .Values.resources.limits.memory }}
-            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.deployment.resources.limits.memory }}
+            cpu: {{ .Values.deployment.resources.limits.cpu }}
