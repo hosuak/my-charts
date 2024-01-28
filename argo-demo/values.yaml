@@ -10,18 +10,23 @@ ingress:
 service:
   name: web-svc
   labels:
-    app.kubernetes.io/instance: argocd
-    app.kubernetes.io/name: argo-demo
-    pod-template-hash: f57d8fcb6
+    app: web-app
+    project: stock-city
   namespace: stock-city
   serviceType: NodePort
   port: 80
 
 deployment:
-  replicaCount: 1
-  image:
-    repository: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com/itbank08
-    tag: latest
+  name: web-deploy
+  labels:
+    app: web-app
+    project: stock-city
+  namespace: stock-city
+  replicas: 1
+  containerName: web-app
+  containerRegistry: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com
+  containerImageName: itbank08
+  containerImageTag: latest
   containerPort: 80
   resources:
     limits:
