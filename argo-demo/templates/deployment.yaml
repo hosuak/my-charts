@@ -19,8 +19,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image:
-          repository: {{ .Values.deployment.image.repository }}
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
           tag: {{ .Values.deployment.image.tag }}
         ports:
         - containerPort: {{ .Values.deployment.containerPort }}

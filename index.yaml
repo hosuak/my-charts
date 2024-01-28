@@ -3,7 +3,7 @@ entries:
   argo-demo:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-01-28T20:38:34.349014626Z"
+    created: "2024-01-28T20:41:32.107131202Z"
     description: A Helm chart for Kubernetes
     digest: 9eacf521d59fc008988008ed795817c9dad45040ec368ad739cbfeeab00defcd
     name: argo-demo
@@ -13,9 +13,9 @@ entries:
     version: 0.1.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-01-28T20:38:34.350875641Z"
+    created: "2024-01-28T20:41:32.108326397Z"
     description: A Helm chart for Kubernetes
-    digest: 4def986d742c3b716043fdf2bbf1f457fe830cac077efa3c92c2ad1b6c731aea
+    digest: 3a97ceb26770a758d1e42fd16b390f395427f1d22ae94b6aef4996b227bbaa5e
     name: argo-demo
     type: application
     urls:
@@ -23,7 +23,7 @@ entries:
     version: 0.1.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-01-28T20:38:34.351917107Z"
+    created: "2024-01-28T20:41:32.108960221Z"
     description: A Helm chart for Kubernetes
     digest: 9a056817c20bfc7b26333b92891728a3e1bbf879c10122fd690e746bb6550bcb
     name: argo-demo
@@ -31,4 +31,4 @@ entries:
     urls:
     - stable/argo-demo-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-28T20:38:34.347524767Z"
+generated: "2024-01-28T20:41:32.106146164Z"
