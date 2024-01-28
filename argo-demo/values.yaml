@@ -36,15 +36,6 @@ externalDNS:
   registry: txt
   txtOwnerId: Z00635613ERGDRY3ESU8T
 
-clusterRole:
-  rules:
-    - apiGroups: [""]
-      resources: ["services","endpoints","pods","nodes"]
-      verbs: ["get","watch","list"]
-    - apiGroups: ["extensions","networking.k8s.io"]
-      resources: ["ingresses"]
-      verbs: ["get","watch","list"]
-
 clusterRoleBinding:
   subjects:
     - serviceAccount: external-dns

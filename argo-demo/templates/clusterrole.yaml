@@ -5,9 +5,9 @@ metadata:
   labels:
     app.kubernetes.io/name: external-dns
 rules:
-{{- range .Values.clusterRole.rules }}
-  - apiGroups:
-      - ""
-    resources: {{ toYaml .resources | quote }}
-    verbs: {{ toYaml .verbs | quote }}
-{{- end }}
+  - apiGroups: [""]
+    resources: ["services","endpoints","pods","nodes"]
+    verbs: ["get","watch","list"]
+  - apiGroups: ["extensions","networking.k8s.io"]
+    resources: ["ingresses"]
+    verbs: ["get","watch","list"]
