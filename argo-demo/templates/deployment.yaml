@@ -37,3 +37,34 @@ spec:
       - name: persistent-storage
         persistentVolumeClaim:
           claimName: s3-claim
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s3-pv
+spec:
+  capacity:
+    storage: {{ .Values.s3.pv.capacity.storage }}
+  accessModes:
+    - {{ .Values.s3.pv.accessModes }}
+  mountOptions:
+    {{- toYaml .Values.s3.pv.mountOptions | nindent 2 }}
+  csi:
+    driver: {{ .Values.s3.pv.csi.driver }}
+    volumeHandle: {{ .Values.s3.pv.csi.volumeHandle }}
+    volumeAttributes:
+      bucketName: {{ .Values.s3.pv.csi.volumeAttributes.bucketName }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: s3-claim
+spec:
+  accessModes:
+    - {{ .Values.s3.pvc.accessModes }}   # 여기 수정
+  storageClassName: {{ .Values.s3.pvc.storageClassName }}
+  resources:
+      requests:
+        storage: {{ .Values.s3.pvc.resources.requests.storage }}
+  volumeName: s3-pv
