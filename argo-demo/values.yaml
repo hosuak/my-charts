@@ -13,7 +13,7 @@ service:
     app: web-app
     project: stock-city
   namespace: stock-city
-  serviceType: NodePort
+  serviceType: ClusterIP
   port: 80
 
 deployment:
