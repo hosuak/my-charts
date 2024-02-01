@@ -21,9 +21,9 @@ metadata:
   name: s3-claim
 spec:
   accessModes:
-    - {{ .Values.pvc.accessModes }}
-  storageClassName: {{ .Values.pvc.storageClassName }}
+    - {{ .Values.S3.pvc.accessModes }}
+  storageClassName: {{ .Values.S3.pvc.storageClassName }}
   resources:
     requests:
-      storage: {{ .Values.pvc.resources.requests.storage }}
+      storage: {{ .Values.S3.pvc.resources.requests.storage }}
   volumeName: s3-pv
