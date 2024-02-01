@@ -31,8 +31,8 @@ spec:
             memory: {{ .Values.deployment.resources.limits.memory }}
             cpu: {{ .Values.deployment.resources.limits.cpu }}
         volumeMounts:
-        - name: persistent-storage
-          mountPath: {{ index .Values.deployment.volumeMounts 0 "mountPath" }}
+          - name: persistent-storage
+            mountPath: {{ .Values.deployment.volumeMounts.mountPath }}
       volumes:
       - name: persistent-storage
         persistentVolumeClaim:
