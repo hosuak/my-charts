@@ -37,7 +37,7 @@ deployment:
       cpu: "500m"
 
 externalDNS:
-  roleName: sua-EKSExternalDNSRole
+  roleName: dh-AmazonEKSExternalDNSRole
   domainFilter: itbank08.link
   provider: aws
   policy: sync
