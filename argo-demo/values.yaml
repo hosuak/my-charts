@@ -53,3 +53,23 @@ clusterRoleBinding:
   subjects:
     - serviceAccount: external-dns
       namespace: stock-city
+
+s3:
+  pv:
+    capacity:
+      storage: 50Gi
+    accessModes:
+      - ReadWriteMany
+    mountOptions:
+      - allow-delete
+      - region=ap-northeast-2
+    csi:
+      driver: s3.csi.aws.com
+      volumeHandle: s3-csi-driver-volume
+      volumeAttributes:
+        bucketName: stockcity-s3
+
+pvc:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
