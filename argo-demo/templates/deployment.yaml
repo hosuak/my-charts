@@ -43,7 +43,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: s3-pv
-  namespace: {{ .Values.deployment.namespace }}
+  namespace:  {{ .Values.deployment.namespace }}
 spec:
   capacity:
     storage: {{ .Values.s3.pv.capacity.storage }}
@@ -65,7 +65,7 @@ metadata:
 spec:
   accessModes:
     - {{ .Values.s3.pvc.accessModes }}   # 여기 수정
-  storageClassName: {{ .Values.s3.pvc.storageClassName }}
+  storageClassName: ""
   resources:
       requests:
         storage: {{ .Values.s3.pvc.resources.requests.storage }}
