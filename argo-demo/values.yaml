@@ -36,8 +36,7 @@ deployment:
       memory: "500Mi"
       cpu: "500m"
   volumeMounts:
-    - name: persistent-storage
-      mountPath: /mountPoint
+    - mountPath: /mountPoint
 
 externalDNS:
   roleName: sua-EKSExternalDNSRole
