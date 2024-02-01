@@ -68,7 +68,6 @@ s3:
       volumeHandle: s3-csi-driver-volume
       volumeAttributes:
         bucketName: stockcity-s3
-s3:
   pvc:
     accessModes:
       - ReadWriteMany
