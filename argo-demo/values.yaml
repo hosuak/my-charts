@@ -1,11 +1,11 @@
 # ingress-chart/values.yaml
-# ingress:
-#   name: my-ingress
-#   namespace: stock-city
-#   loadBalancerName: stock-alb
-#   certificateArn: arn:aws:acm:ap-northeast-2:477159410287:certificate/8f983667-7eee-4d20-9072-3d88255f37cc
-#   serviceName: web-svc
-#   hostname: su.itbank08.link
+ingress:
+  name: my-ingress
+  namespace: stock-city
+  loadBalancerName: stock-alb
+  certificateArn: arn:aws:acm:ap-northeast-2:477159410287:certificate/8f983667-7eee-4d20-9072-3d88255f37cc
+  serviceName: web-svc
+  hostname: su.itbank08.link
 
 service:
   name: web-svc
