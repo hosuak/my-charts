@@ -36,9 +36,8 @@ deployment:
       memory: "500Mi"
       cpu: "500m"
     volumeMounts:
-    - name: persistent-storage
-      mountPath: /mountPoint
-
+      - name: persistent-storage
+        mountPath: /mountPoint
 
 externalDNS:
   roleName: sua-EKSExternalDNSRole
@@ -48,6 +47,7 @@ externalDNS:
   awsZoneType: public
   registry: txt
   txtOwnerId: Z00635613ERGDRY3ESU8T
+  namespace: stock-city
 
 clusterRoleBinding:
   subjects:
@@ -68,10 +68,11 @@ s3:
       volumeHandle: s3-csi-driver-volume
       volumeAttributes:
         bucketName: stockcity-s3
+s3:
   pvc:
     accessModes:
       - ReadWriteMany
     storageClassName: ""
     resources:
       requests:
-        storage: 50gi
+        storage: 50Gi
