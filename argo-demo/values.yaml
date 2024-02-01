@@ -55,8 +55,7 @@ s3:
   pv:
     capacity:
       storage: 50Gi
-    accessModes:
-      - ReadWriteMany
+    accessModes: ReadWriteMany
     mountOptions:
       - allow-delete
       - region=ap-northeast-2
@@ -66,8 +65,7 @@ s3:
       volumeAttributes:
         bucketName: stockcity-s3
   pvc:
-    accessModes:
-      - ReadWriteMany
+    accessModes: ReadWriteMany
     storageClassName: ""
     resources:
       requests:
