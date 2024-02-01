@@ -23,6 +23,9 @@ deployment:
     project: stock-city
   namespace: stock-city
   replicas: 1
+  strategy:
+  maxUnavailable: 2
+  maxSurge: 1
   containerName: web-app
   image:
     repository: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com/itbank08
@@ -32,6 +35,10 @@ deployment:
     limits:
       memory: "500Mi"
       cpu: "500m"
+    volumeMounts:
+    - name: persistent-storage
+      mountPath: /mountPoint
+
 
 externalDNS:
   roleName: sua-EKSExternalDNSRole

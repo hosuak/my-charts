@@ -12,6 +12,11 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.deployment.labels.app }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.deployment.strategy.maxUnavailable }}
+      maxSurge: {{ .Values.deployment.strategy.maxSurge }}
   template:
     metadata:
       labels:
@@ -26,4 +31,10 @@ spec:
             limits:
               memory: {{ .Values.deployment.resources.limits.memory }}
               cpu: {{ .Values.deployment.resources.limits.cpu }}
-
+          volumeMounts:
+          - name: persistent-storage
+            mountPath: {{ .Values.deployment.resources.volumeMounts.mountPath }}
+        volumes:
+          - name: persistent-storage
+            persistentVolumeClaim:
+              claimName: s3-claim
