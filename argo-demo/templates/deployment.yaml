@@ -1,4 +1,3 @@
-# my-chart/templates/web-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,18 +22,18 @@ spec:
         app: {{ .Values.deployment.labels.app }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
-          ports:
-            - containerPort: {{ .Values.deployment.containerPort }}
-          resources:
-            limits:
-              memory: {{ .Values.deployment.resources.limits.memory }}
-              cpu: {{ .Values.deployment.resources.limits.cpu }}
-          volumeMounts:
-            - name: persistent-storage
-              mountPath: {{ .Values.deployment.volumeMounts.mountPath }}
-        volumes:
-          - name: persistent-storage
-            persistentVolumeClaim:
-              claimName: s3-claim
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.deployment.containerPort }}
+        resources:
+          limits:
+            memory: {{ .Values.deployment.resources.limits.memory }}
+            cpu: {{ .Values.deployment.resources.limits.cpu }}
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: {{ .Values.deployment.volumeMounts.mountPath }}
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: s3-claim
