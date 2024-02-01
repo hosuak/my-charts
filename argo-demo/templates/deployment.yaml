@@ -32,7 +32,7 @@ spec:
             cpu: {{ .Values.deployment.resources.limits.cpu }}
         volumeMounts:
         - name: persistent-storage
-          mountPath: {{ .Values.deployment.volumeMounts[0].mountPath }}
+          mountPath: {{ index .Values.deployment.volumeMounts 0 "mountPath" }}
       volumes:
       - name: persistent-storage
         persistentVolumeClaim:
