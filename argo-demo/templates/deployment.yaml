@@ -21,6 +21,15 @@ spec:
       labels:
         app: {{ .Values.deployment.labels.app }}
     spec:
+      affinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: {{ .Values.deployment.affinity.weight }}
+              preference:
+                matchExpressions:
+                  - key: {{ .Values.deployment.affinity.topologyKey }}
+                    operator: In
+                    values: {{ .Values.deployment.affinity.preferredZones | quote }}
+      serviceAccountName: aws-mountpoint-s3-csi-sa
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
@@ -30,6 +39,26 @@ spec:
           limits:
             memory: {{ .Values.deployment.resources.limits.memory }}
             cpu: {{ .Values.deployment.resources.limits.cpu }}
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 80
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 3
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   timeoutSeconds: 5
+        # readinessProbe:
+        #   exec:
+        #     command:
+        #       - ls
+        #       - /mountPoint
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 3
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        #   timeoutSeconds: 5
+
         volumeMounts:
           - name: persistent-storage
             mountPath: /mountPoint

@@ -5,7 +5,7 @@ ingress:
   loadBalancerName: stock-alb
   certificateArn: arn:aws:acm:ap-northeast-2:477159410287:certificate/8f983667-7eee-4d20-9072-3d88255f37cc
   serviceName: web-svc
-  hostname: su.itbank08.link
+  hostname: www.itbank08.link
 
 service:
   name: web-svc
@@ -30,6 +30,12 @@ deployment:
   image:
     repository: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com/itbank08
     tag: 99
+  affinity:
+  topologyKey: "topology.kubernetes.io/zone"
+  preferredZones:
+    - "ap-northeast-2c"
+    - "ap-northeast-2a"
+  weight: 50  
   containerPort: 80
   resources:
     limits:
