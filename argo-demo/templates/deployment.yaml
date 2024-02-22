@@ -1,78 +1,53 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.deployment.name }}
+  name: {{ include "argo-demo.fullname" . }}
   labels:
-    app: {{ .Values.deployment.labels.app }}
-    project: {{ .Values.deployment.labels.project }}
-  namespace: {{ .Values.deployment.namespace }}
+    {{- include "argo-demo.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.deployment.replicas }}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      app: {{ .Values.deployment.labels.app }}
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: {{ .Values.deployment.strategy.maxUnavailable }}
-      maxSurge: {{ .Values.deployment.strategy.maxSurge }}
+      {{- include "argo-demo.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        app: {{ .Values.deployment.labels.app }}
+        {{- include "argo-demo.labels" . | nindent 8 }}
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
-      affinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: {{ .Values.deployment.affinity.weight }}
-              preference:
-                matchExpressions:
-                  - key: {{ .Values.deployment.affinity.topologyKey }}
-                    operator: In
-                    values: {{ .Values.deployment.affinity.preferredZones | quote }}
-      serviceAccountName: aws-mountpoint-s3-csi-sa
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
-        ports:
-        - containerPort: {{ .Values.deployment.containerPort }}
-        resources:
-          limits:
-            memory: {{ .Values.deployment.resources.limits.memory }}
-            cpu: {{ .Values.deployment.resources.limits.cpu }}
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 80
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 3
-        #   successThreshold: 1
-        #   failureThreshold: 3
-        #   timeoutSeconds: 5
-        # readinessProbe:
-        #   exec:
-        #     command:
-        #       - ls
-        #       - /mountPoint
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 3
-        #   successThreshold: 1
-        #   failureThreshold: 3
-        #   timeoutSeconds: 5
-
-        volumeMounts:
-          - name: persistent-storage
-            mountPath: /mountPoint
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            - name: persistent-storage
+              mountPath: /mountPoint
+          {{- end }}
       volumes:
-      - name: persistent-storage
-        persistentVolumeClaim:
-          claimName: s3-claim
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: s3-claim
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: s3-pv
-  namespace:  {{ .Values.deployment.namespace }}
 spec:
   capacity:
     storage: {{ .Values.s3.pv.capacity.storage }}
@@ -99,3 +74,4 @@ spec:
       requests:
         storage: {{ .Values.s3.pvc.resources.requests.storage }}
   volumeName: s3-pv
+

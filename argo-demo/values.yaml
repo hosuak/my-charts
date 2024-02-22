@@ -23,9 +23,6 @@ deployment:
     project: stock-city
   namespace: stock-city
   replicas: 1
-  strategy:
-    maxUnavailable: 2
-    maxSurge: 1
   containerName: web-app
   image:
     repository: 477159410287.dkr.ecr.ap-northeast-2.amazonaws.com/itbank08
@@ -33,8 +30,8 @@ deployment:
   affinity:
   topologyKey: "topology.kubernetes.io/zone"
   preferredZones:
-    - "ap-northeast-2c"
     - "ap-northeast-2a"
+    - "ap-northeast-2c"
   weight: 50  
   containerPort: 80
   resources:
